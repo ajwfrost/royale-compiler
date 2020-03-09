@@ -251,7 +251,7 @@ final class RoyaleApplicationFrame1Info extends RoyaleFrame1Info
          */
         boolean isApplicationOrModule(IDefinition def)
         {
-            if (!(def instanceof ITypeDefinition))
+            if ((def == null) || !(def instanceof ITypeDefinition))
                 return false;
             ITypeDefinition typeDef = (ITypeDefinition)def;
             if (typeDef == sparkApplication ||
@@ -263,7 +263,8 @@ final class RoyaleApplicationFrame1Info extends RoyaleFrame1Info
                 
                 return ((sparkApplication != null && typeDef.isInstanceOf(sparkApplication, royaleProject)) ||
                         (iModule != null && typeDef.isInstanceOf(iModule, royaleProject)) ||
-                        (haloApplication != null && typeDef.isInstanceOf(iModule, royaleProject)));
+                        (haloApplication != null && typeDef.isInstanceOf(iModule, royaleProject)) ||
+                        isApplicationOrModule(def.getParent()));
         }
         
         private ITypeDefinition resolveType(IResolvedQualifiersReference ref)
